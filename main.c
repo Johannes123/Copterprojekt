@@ -19,6 +19,8 @@
 #include <driverlib/rom.h> /* Supplies ROM_* variations of functions */
 #include <inc/hw_memmap.h> /* Supplies GPIO_PORTx_BASE */
 
+#include "local_inc/bluetooth.h"
+
 /* Controller is initially clocked with 16 MHz (via PIOSC) */
 /* !!! Changing this macro does not change clock speed !!! */
 #define F_CPU (16000000)
@@ -29,6 +31,9 @@ int main(void)
     uint32_t ui32PinType;
     uint8_t ui8button;
     uint8_t ui8toggle = (1<<1);
+
+    //Clock auf 120MHZ setzen
+    uint32_t clkFreq = SysCtlClockFreqSet(SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_480, 120000000);
 
     /* Activate GPIO ports */
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ);
@@ -45,6 +50,9 @@ int main(void)
 
     /* Set pins 0 & 1 of GPIO port N to digital output */
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_1 | GPIO_PIN_0);
+
+    //enable UART peripheral
+    setup_UART(clkFreq);
 
 
     while(1) {
