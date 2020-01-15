@@ -5,7 +5,8 @@
  *      Author: Martin
  */
 
-#define TARGET_IS_TM4C129_RA2 /* Tells rom.h the version of the silicon */
+//#define TARGET_IS_TM4C129_RA2 /* Tells rom.h the version of the silicon */
+
 #include <stdint.h> /* C99 header for uint*_t types */
 #include <stdbool.h> /* Driverlib headers require stdbool.h to be included first */
 #include <driverlib/gpio.h> /* Supplies GPIO* functions and GPIO_PIN_x */
@@ -14,6 +15,16 @@
 #include <driverlib/sysctl.h> /* Supplies SysCtl* functions and SYSCTL_* macros */
 #include <driverlib/uart.h>
 #include <inc/hw_memmap.h> /* Supplies GPIO_PORTx_BASE */
+
+/*Board Header files */
+#include <Board.h>
+#include <EK_TM4C1294XL.h>
+
+/* TI-RTOS Header files */
+#include <driverlib/sysctl.h>
+#include <ti/drivers/UART.h>
+
+#include <bluetooth.h>
 
 
 int setup_UART(uint32_t clkFreq)
@@ -25,7 +36,7 @@ int setup_UART(uint32_t clkFreq)
     GPIOPinConfigure(GPIO_PP0_U6RX);
     GPIOPinConfigure(GPIO_PP1_U6TX);
     GPIOPinTypeUART(GPIO_PORTP_BASE, GPIO_PIN_0 | GPIO_PIN_0);
-//    UART_init(); --TI-RTOS, probably should to use this
+    //UART_init(); --linker error, missing include???
 
     return 0;
 }

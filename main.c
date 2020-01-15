@@ -19,7 +19,7 @@
 #include <driverlib/rom.h> /* Supplies ROM_* variations of functions */
 #include <inc/hw_memmap.h> /* Supplies GPIO_PORTx_BASE */
 
-#include "local_inc/bluetooth.h"
+#include <bluetooth.h>
 
 /* Controller is initially clocked with 16 MHz (via PIOSC) */
 /* !!! Changing this macro does not change clock speed !!! */
@@ -53,7 +53,6 @@ int main(void)
 
     //enable UART peripheral
     setup_UART(clkFreq);
-
 
     while(1) {
         /* Toggle bit 1 in variable ui8toggle */
